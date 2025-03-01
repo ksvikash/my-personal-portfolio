@@ -13,29 +13,29 @@ export default function Home() {
 
   const [isDarkMode, setIsDarkMode] = useState(false);
 
-  useEffect(()=>{
-    if(localStorage.theme = 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)){
-      setIsDarkMode(true)
+  useEffect(() => {
+    const storedTheme = localStorage.getItem('theme'); // Get stored theme
+    if (storedTheme) {
+      setIsDarkMode(storedTheme === 'dark'); // Apply stored theme
+    } else {
+      // Use system preference if no stored theme
+      setIsDarkMode(window.matchMedia('(prefers-color-scheme: dark)').matches);
     }
-    else{
-      setIsDarkMode(false)
-    }
-  },[])
+  }, []);
 
-  useEffect(()=>{
-    if(isDarkMode){
+  useEffect(() => {
+    if (isDarkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.theme = 'dark';
-    }
-    else{
+      localStorage.setItem('theme', 'dark');
+    } else {
       document.documentElement.classList.remove('dark');
-      localStorage.theme = '';
+      localStorage.setItem('theme', 'light');
     }
-  },[isDarkMode])
+  }, [isDarkMode]);
 
   return (
     <>
-      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode}/>
+      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
       <Header isDarkMode={isDarkMode} />
       <About isDarkMode={isDarkMode} />
       <Education isDarkMode={isDarkMode} />
