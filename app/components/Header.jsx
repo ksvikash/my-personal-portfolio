@@ -85,9 +85,10 @@ const Header = () => {
             : "right-10 top-1/2 transform -translate-y-1/2 flex-col gap-6"
         }`}
         style={{ opacity: barOpacity }}
-        initial={{ opacity: 1 }}
+        initial={{ opacity: 0 }}
+        whileInView={{opacity: 1}}
         animate={{ opacity: isVisible ? 1 : 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.6, delay:1.3 }}
       >
         <div className={`flex ${isMobile ? "flex-row" : "flex-col"} items-center gap-6`}>
           <div className="rounded-full bg-gray-200 p-3 cursor-pointer hover:bg-gray-300 transition-all duration-300">
