@@ -42,13 +42,8 @@ const About = ({isDarkMode}) => {
             whileInView={{opacity: 1}}
             transition={{duration: 0.6, delay:0.8}}
         className='flex-1'>
-            <p className='mb-10 max-w-2xl font-Ovo'>
-                I am dedicated to utilizing my expertise in the field 
-                of artificial intelligence to drive innovation and 
-                create cutting-edge solutions. With a Bachelor's 
-                degree in Electronics and Communication Engineering 
-                from VIT Chennai with a 9.33 CGPA, I have a strong 
-                foundation in both theoretical and practical knowledge. 
+            <p className='mb-10 max-w-2xl text-center sm:text-center md:text-center lg:text-left font-Ovo'>
+                Hey there! I'm Vikash, an engineer, problem-solver, and all-around curious mind. When I'm not building cool tech solutions or diving into AI and analytics, you’ll probably find me exploring new places, trying out different cuisines, or kicking back with friends. I love playing basketball and football (both kinds!), and there’s always music playing in the background—because what’s life without a great soundtrack?
                 </p>
 
             <motion.ul 
