@@ -1,9 +1,27 @@
 import { assets } from '@/assets/assets'
 import Image from 'next/image'
-import React from 'react'
-import { motion } from "motion/react"
+import React, { useState, useEffect } from 'react'
+import { motion, useScroll, useTransform } from "motion/react"
+import Link from "next/link";
 
 const Header = () => {
+  const { scrollY } = useScroll();
+  const [isVisible, setIsVisible] = useState(true);
+  
+  // Transform opacity based on scroll position
+  const barOpacity = useTransform(scrollY, [0, 300], [1, 0]);
+  
+  // Monitor scroll to determine visibility
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      setIsVisible(currentScrollY < 300);
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
     <div className='w-11/12 max-w-3xl text-center mx-auto h-screen flex flex-col items-center justify-center gap-4'>
         <motion.div 
@@ -44,6 +62,41 @@ const Header = () => {
               transition = {{duration:0.6, delay:1.2}}
             href="/sample-resume.pdf" download className='px-10 py-3 border rounded-full border-gray-500 flex items-center gap-2 bg-white dark:text-black'>my resume <Image src={assets.download_icon} alt='' className='w-4'/></motion.a>
         </div>
+
+        <motion.div 
+        className="fixed right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-6 z-40"
+        style={{ opacity: barOpacity }}
+        initial={{ opacity: 1 }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+        transition={{ duration: 0.3 }}
+      >
+        <div className="flex flex-col items-center gap-6">
+          <div className="rounded-full bg-gray-200 p-3 cursor-pointer hover:bg-gray-300 transition-all duration-300">
+            <Link href="https://linkedin.com/in/your-linkedin" target="_blank" aria-label="LinkedIn">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#0077B5">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+              </svg>
+            </Link>
+          </div>
+          
+          <div className="rounded-full bg-gray-200 p-3 cursor-pointer hover:bg-gray-300 transition-all duration-300">
+            <Link href="https://github.com/ksvikash" target="_blank" aria-label="GitHub">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#24292e">
+                <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
+              </svg>
+            </Link>
+          </div>
+          
+          <div className="rounded-full bg-gray-200 p-3 cursor-pointer hover:bg-gray-300 transition-all duration-300">
+            <Link href="#contact" aria-label="Contact Me">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#333">
+                <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+              </svg>
+            </Link>
+          </div>
+        </div>
+      </motion.div>
+
     </div>
   )
 }

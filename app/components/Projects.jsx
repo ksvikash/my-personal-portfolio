@@ -63,7 +63,7 @@ const Projects = (isDarkMode) => {
             whileInView={{opacity: 1}}
             transition={{delay:0.9, duration: 0.5}}
           href="" className='w-max flex items-center justify-center gap-2 text-gray-700 border-[0.5px] border-gray-700 rounded-full py-2 px-10 mx-auto my-15 hover:bg-lightHover duration-500 dark:text-white dark:border-white dark:hover:bg-darkHover'>
-            Show more <Image src={isDarkMode ? assets.right_arrow_bold_dark : assets.right_arrow_bold} alt='Right arrow' className='w-4'/>
+            Show more
           </motion.a>
     </motion.div>
   )
