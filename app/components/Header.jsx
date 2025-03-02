@@ -7,19 +7,34 @@ import Link from "next/link";
 const Header = () => {
   const { scrollY } = useScroll();
   const [isVisible, setIsVisible] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   
   // Transform opacity based on scroll position
   const barOpacity = useTransform(scrollY, [0, 300], [1, 0]);
   
-  // Monitor scroll to determine visibility
+  // Monitor scroll to determine visibility and check screen size
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       setIsVisible(currentScrollY < 300);
     };
     
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 950); // 768px is a common breakpoint for mobile
+    };
+    
+    // Set initial states
+    handleResize();
+    
+    // Add event listeners
     window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener("resize", handleResize, { passive: true });
+    
+    // Clean up event listeners
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
 
   return (
@@ -64,13 +79,17 @@ const Header = () => {
         </div>
 
         <motion.div 
-        className="fixed right-10 top-1/2 transform -translate-y-1/2 flex flex-col gap-6 z-40"
+        className={`fixed z-40 flex ${
+          isMobile 
+            ? "bottom-10 left-1/2 transform -translate-x-1/2 flex-row gap-6" 
+            : "right-10 top-1/2 transform -translate-y-1/2 flex-col gap-6"
+        }`}
         style={{ opacity: barOpacity }}
         initial={{ opacity: 1 }}
         animate={{ opacity: isVisible ? 1 : 0 }}
         transition={{ duration: 0.3 }}
       >
-        <div className="flex flex-col items-center gap-6">
+        <div className={`flex ${isMobile ? "flex-row" : "flex-col"} items-center gap-6`}>
           <div className="rounded-full bg-gray-200 p-3 cursor-pointer hover:bg-gray-300 transition-all duration-300">
             <Link href="https://linkedin.com/in/your-linkedin" target="_blank" aria-label="LinkedIn">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="#0077B5">
