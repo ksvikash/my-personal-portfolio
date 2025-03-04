@@ -48,12 +48,21 @@ const Education = ({isDarkMode}) => {
             >
               {/* University Logo - Top Right Corner with Responsive Sizing */}
               <div className="absolute top-4 right-4">
+                {/* Large screen logo */}
                 <Image 
                   src={isDarkMode ? edu.iconDark : edu.icon} 
                   alt={`${edu.institution} logo`} 
                   width={100} 
                   height={100} 
-                  className="object-contain w-[100px] md:w-[80px] sm:w-[60px] xs:w-[50px]"
+                  className="object-contain w-[100px] hidden lg:block"
+                />
+                {/* Small and medium screen logo */}
+                <Image 
+                  src={isDarkMode ? edu.iconSmallDark : edu.iconSmall} 
+                  alt={`${edu.institution} logo`} 
+                  width={60} 
+                  height={60} 
+                  className="object-contain w-[60px] lg:hidden"
                 />
               </div>
 
