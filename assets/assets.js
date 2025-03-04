@@ -42,6 +42,11 @@ import publication_icon_dark from './publication_icon_dark.png'
 import publication_icon from './publication_icon.png'
 import mgmt_icon_dark from './mgmt_icon_dark.png'
 import mgmt_icon from './mgmt_icon.png'
+import vit_logo from './vit_logo.png'
+import vit_logo_black from './vit_logo_black.png'
+import duke_logo_white from './duke_logo_white.png'
+import duke_logo_black from './duke_logo_black.png'
+
 
 
 export const assets = {
@@ -89,6 +94,10 @@ export const assets = {
     lang_icon,
     publication_icon,
     mgmt_icon,
+    vit_logo,
+    vit_logo_black,
+    duke_logo_black,
+    duke_logo_white
 };
 
 export const workData = [
@@ -126,3 +135,36 @@ export const infoList = [
     { icon: assets.publication_icon, iconDark: assets.publication_icon_dark, title: 'Research Publications', description: 'An approach to Generation of sentences using Sign Language Detection' },
     { icon: assets.lang_icon, iconDark: assets.lang_icon_dark, title: 'Languages known', description: 'English, Tamil, French(Basic)' }
 ];
+
+export const educationData = [
+    {
+      institution: "Vellore Institute of Technology (VIT)",
+      degree: "B.Tech in Electronics and Communication Engineering",
+      period: "2020 - 2024",
+      location: "Chennai, India",
+      highlights: [
+        "CGPA: 9.33/10.0",
+        "Electronics and Communication Engineering",
+        "Advanced coursework in AI and Signal Processing"
+      ],
+      icon: assets.vit_logo_black,
+      iconDark: assets.vit_logo,
+      bgColor: "bg-white",
+      textColor: "text-gray-800"
+    },
+    {
+      institution: "Duke University",
+      degree: "Master's in Artificial Intelligence",
+      period: "2023 - Present",
+      location: "Durham, NC, USA",
+      highlights: [
+        "Specialization in Machine Learning",
+        "Research in Advanced AI Technologies",
+        "Cutting-edge curriculum in AI innovation"
+      ],
+      icon: assets.duke_logo_black,
+      iconDark: assets.duke_logo_white,
+      bgColor: "bg-white",
+      textColor: "text-gray-800"
+    }
+  ];
