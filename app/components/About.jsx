@@ -63,26 +63,6 @@ const About = ({isDarkMode}) => {
                 ))}
             </motion.ul>
 
-            <motion.h4 
-                initial={{opacity: 0, y:20}}
-                whileInView={{opacity: 1, y:0}}
-                transition={{duration: 0.5, delay:0.5}}
-            className='my-6 text-gray-700 font-Ovo dark:text-white/80'>Tools I Use</motion.h4>
-
-            <motion.ul 
-                initial={{opacity: 0}}
-                whileInView={{opacity: 1}}
-                transition={{duration: 0.6, delay:1.5}}
-            className='flex items-center gap-3 sm:gap-5'>
-                {toolsData.map((tool,index,)=>(
-                    <motion.li 
-                        whileHover={{scale: 1.1}}
-                    className='flex items-center justify-center w-12 sm:w-14 aspect-square border border-gray-400 rounded-lg cursor-pointer hover:-translate-y-1 duration-500' key={index}>
-                        <Image src={tool} alt='Tool' className='w-5 sm:w-7s'/>
-                    </motion.li>
-                ))}
-            </motion.ul>
-
         </motion.div>
       </motion.div>
     </motion.div>
