@@ -1,28 +1,30 @@
-import { Outfit, Ovo } from "next/font/google";
+import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
+import ClientShell from "./ClientShell";
 
-const outfit = Outfit({
+const fraunces = Fraunces({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"]
+  variable: "--font-fraunces",
+  weight: ["300", "400"],
 });
 
-const ovo = Ovo({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400"]
+  variable: "--font-inter",
+  weight: ["300", "400", "500"],
 });
 
 export const metadata = {
-  title: "Vikash K S Portfolio",
-  description: "",
+  title: "Vikash Kalyani Sankararaman",
+  description:
+    "AI/ML engineer and researcher based in Zurich — intelligent systems and human-centered software.",
 };
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${outfit.className} ${ovo}.className} antialiased leading-8 overflow-x-hidden dark:bg-darkTheme dark:text-white`}
-      >
-        {children}
+    <html lang="en" className={`${fraunces.variable} ${inter.variable}`}>
+      <body className="font-sans overflow-x-hidden bg-canvas text-ink">
+        <ClientShell>{children}</ClientShell>
       </body>
     </html>
   );

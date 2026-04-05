@@ -1,72 +1,114 @@
-import { assets, infoList, toolsData } from '@/assets/assets'
-import Image from 'next/image'
-import React from 'react'
-import { motion } from "motion/react"
+"use client";
 
-const About = ({isDarkMode}) => {
+import { useEffect, useRef } from "react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
+import { about, experienceItems, person } from "../data/content";
+
+gsap.registerPlugin(ScrollTrigger);
+
+function BioParagraph({ parts }) {
   return (
-    <motion.div 
-        initial={{opacity: 0}}
-        whileInView={{opacity: 1}}
-        transition={{duration: 1}}
-    id='about' className='w-full px-[12%] py-10 scroll-mt-20'>
-      
-      <motion.h4 
-        initial={{opacity: 0, y:-20}}
-        whileInView={{opacity: 1, y:0}}
-        transition={{duration: 1, delay:0.3}}
-      className='text-center mb-2 text-lg font-Ovo'>Introduction</motion.h4>
-      
-      <motion.h2 
-        initial={{opacity: 0, y:-20}}
-        whileInView={{opacity: 1, y:0}}
-        transition={{duration: 0.5, delay:0.5}}
-      className='text-center text-5xl font-Ovo'>About Me </motion.h2>
-
-      <motion.div 
-        initial={{opacity: 0}}
-        whileInView={{opacity: 1}}
-        transition={{duration: 0.8}}
-      className='flex w-full flex-col lg:flex-row items-center gap-20 my-5'>
-        
-        <motion.div 
-            initial={{opacity: 0, scale:0.9}}
-            whileInView={{opacity: 1, scale:1}}
-            transition={{duration: 0.6}}
-        className='w-64 sm:w-80 rounded-3xl max-w-none'>
-            <Image src={assets.user_image} alt='user' className='w-full rounded-3xl'/>
-        </motion.div>
-        
-        <motion.div 
-            initial={{opacity: 0}}
-            whileInView={{opacity: 1}}
-            transition={{duration: 0.6, delay:0.8}}
-        className='flex-1'>
-            <p className='mb-10 max-w-2xl text-center sm:text-center md:text-center lg:text-left font-Ovo'>
-                Hey there! I'm Vikash, an engineer, problem-solver, and all-around curious mind. When I'm not building cool tech solutions or diving into AI and analytics, you’ll probably find me exploring new places, trying out different cuisines, or kicking back with friends. I love playing basketball and football (both kinds!), and there’s always music playing in the background—because what’s life without a great soundtrack?
-                </p>
-
-            <motion.ul 
-                initial={{opacity: 0}}
-                whileInView={{opacity: 1}}
-                transition={{duration: 0.8, delay:1}}
-            className='grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl'>
-                {infoList.map(({icon, iconDark, title, description}, index)=>(
-                    
-                    <motion.li 
-                        whileHover={{scale:1.05}}
-                    className='border-[0.5px] border-gray-400 rounded-xl p-6 cursor-pointer hover:bg-lightHover hover:-translate-y-1 duration-500 hover:shadow-black dark:borrder-white dark:hover:shadow-white dark:hover:bg-darkHover/50' key={index}>
-                        <Image src={isDarkMode ? iconDark : icon} alt={title} className='w-7 mt-3'/>
-                        <h3 className='my-4 font-semibold text-gray-700 dark:text-white'>{title}</h3>
-                        <p className='text-gray-600 text-sm dark:text-white/80'>{description}</p>
-                    </motion.li>
-                ))}
-            </motion.ul>
-
-        </motion.div>
-      </motion.div>
-    </motion.div>
-  )
+    <p className="font-serif text-[1.4rem] font-light leading-[1.45] text-ink lg:text-[1.8rem] lg:leading-[1.4]">
+      {parts.map((part, i) =>
+        typeof part === "string" ? (
+          <span key={i}>{part}</span>
+        ) : (
+          <span key={i} className="text-muted">
+            {part.highlight}
+          </span>
+        )
+      )}
+    </p>
+  );
 }
 
-export default About
+export default function About() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const ctx = gsap.context(() => {
+      gsap.from(el.querySelectorAll(".about-reveal"), {
+        scrollTrigger: {
+          trigger: el,
+          start: "top 75%",
+          end: "bottom top",
+          toggleActions: "play none none reverse",
+        },
+        y: 60,
+        opacity: 0,
+        duration: 0.9,
+        stagger: 0.08,
+        ease: "power3.out",
+      });
+    }, el);
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section
+      id="about"
+      ref={sectionRef}
+      className="flex min-h-screen flex-col justify-center px-[6vw] py-[12vh] md:px-[8vw] md:py-[15vh] lg:px-[10vw]"
+    >
+      <div className="mx-auto w-full max-w-[600px]">
+        <p className="about-reveal mb-8 text-[0.75rem] font-medium uppercase tracking-[0.2em] text-muted">
+          ABOUT
+        </p>
+
+        <div className="about-reveal flex flex-col gap-10">
+          {about.paragraphs.map((p, idx) => (
+            <BioParagraph key={idx} parts={p.parts} />
+          ))}
+        </div>
+
+        <p className="about-reveal mt-10 text-[0.8rem] leading-relaxed text-muted/90">
+          {about.educationNote}
+        </p>
+
+        <div className="about-reveal mt-16">
+          <p className="mb-6 text-[0.75rem] font-medium uppercase tracking-[0.1em] text-muted">
+            EXPERIENCE
+          </p>
+          <ul className="flex flex-col">
+            {experienceItems.map((row, i) => (
+              <li
+                key={i}
+                className="flex flex-col gap-1 border-b border-black/[0.08] py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
+              >
+                <span className="text-[0.85rem] text-muted">{row.date}</span>
+                <span className="text-[0.95rem] text-ink">{row.role}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="about-reveal mt-10">
+          <Link
+            href={person.cvPath}
+            target="_blank"
+            data-cursor-hover
+            className="group inline-flex items-center gap-3 rounded-full bg-ink px-8 py-3 text-[0.9rem] font-medium text-white transition-transform duration-300 ease-smooth hover:scale-105"
+          >
+            <span>View Full CV</span>
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              aria-hidden
+            >
+              <path d="M5 12h14M13 6l6 6-6 6" />
+            </svg>
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}

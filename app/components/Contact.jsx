@@ -1,64 +1,70 @@
-import { assets } from '@/assets/assets'
-import Image from 'next/image'
-import React, { useState } from 'react'
-import { motion } from "motion/react"
+"use client";
 
-const Contact = () => {
-  
-  const [result, setResult] = useState("");
+import { person } from "../data/content";
 
-  const onSubmit = async (event) => {
-    event.preventDefault();
-    setResult("Sending....");
-    const formData = new FormData(event.target);
-
-    formData.append("access_key", "65ec7b04-e508-4f2d-b0d5-8d6ab2907fdb");
-
-    const response = await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: formData
-    });
-
-    const data = await response.json();
-
-    if (data.success) {
-      setResult("Form Submitted Successfully");
-      event.target.reset();
-    } else {
-      console.log("Error", data);
-      setResult(data.message);
-    }
-  };
-  
+export default function Contact() {
   return (
-    <div id='contact' className='w-full px-[12%] py-10 scroll-mt-20 bg-[url("/footer-bg-color.png")] bg-no-repeat bg-center bg-[length:90%_auto] dark:bg-none'>
-          <h4 className='text-center mb-2 text-lg font-Ovo'>Get in touch</h4>
-          <h2 className='text-center text-5xl font-Ovo'>Contact Me</h2>
-          <p className='text-center max-w-2xl mx-auto mt-5 mb-12 font-Ovo'>
-            I am dedicated to utilizing my expertise in the field 
-            of artificial intelligence to drive innovation and 
-            create cutting-edge solutions.
-          </p>
+    <section
+      id="contact"
+      className="relative min-h-0 overflow-hidden px-[6vw] py-[12vh] md:px-[8vw] md:py-[15vh] lg:px-[10vw]"
+    >
+      <div
+        className="pointer-events-none absolute bottom-[-20vh] left-1/2 h-[60vh] w-[120vw] -translate-x-1/2 rounded-full bg-[radial-gradient(circle_at_center,rgba(75,134,247,0.55)_0%,transparent_65%)] opacity-60 blur-[80px]"
+        aria-hidden
+      />
 
-          <motionform onSubmit={onSubmit} className='max-w-2xl mx-auto'>
-            <div className='grid grid-cols-auto gap-6 mt-10 mb-8'>
-                <input type="text" placeholder='Enter your name' required className='flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkHover/30 dark:border-white/90' name='name'/>
-                <input type="email" placeholder='Enter your e-mail' required className='flex-1 p-3 outline-none border-[0.5px] border-gray-400 rounded-md bg-white dark:bg-darkHover/30 dark:border-white/90' name='email'/>
-            </div>
-            <textarea rows='4' placeholder='Enter your message' required className='w-full p-4 outline-none border-[0.5px] border-gray-400 rounded-md bg-white mb-4 dark:bg-darkHover/30 dark:border-white/90' name='message'></textarea>
-            <motion.button 
-              whileHover={{scale:1.05}}
-              transition={{duration:0.3}}
-            type='submit' className='py-3 px-8 w-max flex items-center justify-between gap-2 bg-black/80 text-white rounded-full mx-auto hover:bg-black duration-500 dark:bg-transparent dark:border-[0.5px] dark:hover:bg-darkHover'>
-                Submit now <Image src={assets.right_arrow_white} alt='' className='w-4'/>
-            </motion.button>
+      <div className="relative z-10 mx-auto max-w-[700px] text-center">
+        <p className="mb-8 text-[0.75rem] font-medium uppercase tracking-[0.2em] text-muted">
+          CONTACT
+        </p>
+        <h2 className="font-serif text-[clamp(2rem,6vw,4.5rem)] font-light leading-[1.1] text-ink lg:text-[clamp(2.5rem,5vw,4.5rem)]">
+          Let&apos;s build something great.
+        </h2>
+        <p className="mx-auto mt-6 max-w-[400px] text-[1.1rem] leading-relaxed text-muted">
+          Open for collaborations, full-time roles, and interesting projects.
+        </p>
 
-            <p className='mt-4'>{result}</p>
-          </motionform>
-      
-    </div>
-  )
+        <div className="mt-12 flex w-full max-w-md flex-col items-stretch gap-4 sm:mx-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
+          <a
+            href={`mailto:${person.email}`}
+            data-cursor-hover
+            className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-ink px-8 py-3.5 text-[0.95rem] font-medium text-white transition-transform duration-300 ease-smooth hover:scale-105 sm:w-auto"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              aria-hidden
+            >
+              <path d="M4 4h16v16H4z" opacity="0" />
+              <path d="M22 6l-10 7L2 6M2 4h20v16H2z" />
+            </svg>
+            <span>Send an Email</span>
+          </a>
+        </div>
+
+        <div className="mt-12 flex flex-wrap justify-center gap-8 text-[0.85rem]">
+          <a
+            href={person.linkedIn}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted transition-colors hover:text-ink"
+          >
+            LinkedIn
+          </a>
+          <a
+            href={person.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-muted transition-colors hover:text-ink"
+          >
+            GitHub
+          </a>
+        </div>
+      </div>
+    </section>
+  );
 }
-
-export default Contact
- 

@@ -44,10 +44,6 @@ import mgmt_icon_dark from './mgmt_icon_dark.png'
 import mgmt_icon from './mgmt_icon.png'
 import vit_logo from './vit_logo.png'
 import vit_logo_black from './vit_logo_black.png'
-import duke_logo_white from './duke_logo_white.png'
-import duke_logo_black from './duke_logo_black.png'
-import duke_small_logo_dark from './duke_small_logo_dark.png'
-import duke_small_logo from './duke_small_logo.png'
 import vit_small_logo_dark from './vit_small_logo_dark.png'
 import vit_small_logo from './vit_small_logo.png'
 
@@ -100,10 +96,6 @@ export const assets = {
     mgmt_icon,
     vit_logo,
     vit_logo_black,
-    duke_logo_black,
-    duke_logo_white,
-    duke_small_logo_dark,
-    duke_small_logo,
     vit_small_logo_dark,
     vit_small_logo
 };
@@ -159,23 +151,6 @@ export const educationData = [
       iconDark: assets.vit_logo,
       iconSmall: assets.vit_small_logo,
       iconSmallDark: assets.vit_small_logo_dark,
-      bgColor: "bg-white",
-      textColor: "text-gray-800"
-    },
-    {
-      institution: "Duke University",
-      degree: "Master's in Artificial Intelligence",
-      period: "2023 - Present",
-      location: "Durham, NC, USA",
-      highlights: [
-        "Specialization in Machine Learning",
-        "Research in Advanced AI Technologies",
-        "Cutting-edge curriculum in AI innovation"
-      ],
-      icon: assets.duke_logo_black,
-      iconDark: assets.duke_logo_white,
-      iconSmall: assets.duke_small_logo,
-      iconSmallDark: assets.duke_small_logo_dark,
       bgColor: "bg-white",
       textColor: "text-gray-800"
     }
