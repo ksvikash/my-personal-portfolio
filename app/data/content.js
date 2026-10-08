@@ -148,7 +148,7 @@ export const projects = [
     expanded:
       "Designed a parameterizable 32-tap FIR filter accelerator (1–16 MAC units) for the Croc SoC in SystemVerilog, connecting it over the OBI interconnect and using a FIFO-decoupled writeback path to overlap compute with memory access. Compared cycle count, area, and power across 5 MAC configurations and identified 8 MACs as the Pareto-optimal design, achieving a 90.5× speedup over a software implementation. Carried the design through synthesis, place-and-route, and DRC/LVS closure at 80 MHz on the IHP SG13G2 process using Yosys and OpenROAD. Verified functional correctness against a Python golden model across signal lengths from 36 to 540 samples.",
     tags: ["SystemVerilog", "Yosys", "OpenROAD", "OBI", "ASIC Flow"],
-    link: { type: "github", url: "https://github.com/ksvikash" },
+    link: { type: "github", url: "https://github.com/RamachandranTejeswar/CrocFIRe" },
   },
   {
     id: "semantic-world-models",
