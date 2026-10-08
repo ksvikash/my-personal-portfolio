@@ -79,7 +79,9 @@ export default function CustomCursor() {
         ring.style.height = `${size}px`;
         ring.style.left = `${pos.current.x - size / 2}px`;
         ring.style.top = `${pos.current.y - size / 2}px`;
-        ring.style.borderColor = hover ? "rgba(26,26,26,0.8)" : "rgba(26,26,26,0.4)";
+        ring.style.borderColor = hover
+          ? "rgba(75,134,247,0.8)"
+          : "rgba(237,237,237,0.4)";
       }
 
       const ctx = canvas.getContext("2d");
@@ -97,7 +99,7 @@ export default function CustomCursor() {
             list.splice(i, 1);
             continue;
           }
-          ctx.fillStyle = `rgba(75, 134, 247, ${0.3 * pt.life})`;
+          ctx.fillStyle = `rgba(75, 134, 247, ${0.4 * pt.life})`;
           ctx.beginPath();
           ctx.arc(pt.x, pt.y, pt.size * (0.4 + 0.6 * pt.life), 0, Math.PI * 2);
           ctx.fill();
@@ -126,7 +128,7 @@ export default function CustomCursor() {
         style={{
           width: 24,
           height: 24,
-          borderColor: "rgba(26,26,26,0.4)",
+          borderColor: "rgba(237,237,237,0.4)",
         }}
         aria-hidden
       />

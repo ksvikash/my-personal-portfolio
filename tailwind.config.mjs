@@ -8,19 +8,39 @@ export default {
   theme: {
     extend: {
       colors: {
-        canvas: "#F7F7F7",
-        ink: "#1A1A1A",
-        muted: "#707070",
+        // Dark canvas system
+        canvas: "#0A0A0B",
+        surface: "#111114",
+        surfaceLight: "#1A1A20",
+        ink: "#EDEDED",
+        inkSoft: "#B0B0B8",
+        muted: "#6B6B76",
+        mutedSoft: "#4A4A54",
+        line: "#222228",
+        lineLight: "#2E2E36",
         accent: "#4B86F7",
-        lavender: "#E8D5F7",
-        ice: "#D5E8F7",
-        cream: "#F7E8D5",
+        accentDim: "#2A5BB8",
+        accentGlow: "rgba(75,134,247,0.15)",
         success: "#22C55E",
         successDark: "#15803D",
+        warning: "#F59E0B",
+        error: "#EF4444",
+        // Retained for compatibility
+        lavender: "#3A2A5C",
+        ice: "#1A2438",
+        cream: "#2A2620",
+        term: "#0A0A0A",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],
         serif: ["var(--font-fraunces)", "Georgia", "serif"],
+        mono: ["var(--font-jetbrains)", "JetBrains Mono", "monospace"],
+      },
+      backgroundImage: {
+        "grid-light":
+          "linear-gradient(to right, rgba(0,0,0,0.04) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,0,0,0.04) 1px, transparent 1px)",
+        "grid-dark":
+          "linear-gradient(to right, rgba(255,255,255,0.035) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.035) 1px, transparent 1px)",
       },
       transitionTimingFunction: {
         smooth: "cubic-bezier(0.23, 1, 0.32, 1)",
@@ -32,18 +52,28 @@ export default {
           "66%": { transform: "translate(-4%, 2%) scale(0.98)" },
         },
         scrollHint: {
-          "0%, 100%": { transform: "translateY(0)", opacity: "0.5" },
-          "50%": { transform: "translateY(10px)", opacity: "0.8" },
+          "0%, 100%": { transform: "translateY(0)", opacity: "0.4" },
+          "50%": { transform: "translateY(10px)", opacity: "0.7" },
         },
         pulseDot: {
           "0%, 100%": { transform: "scale(1)", opacity: "1" },
-          "50%": { transform: "scale(1.2)", opacity: "0.85" },
+          "50%": { transform: "scale(1.3)", opacity: "0.8" },
+        },
+        caretBlink: {
+          "0%, 49%": { opacity: "1" },
+          "50%, 100%": { opacity: "0" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
         },
       },
       animation: {
         blobFloat: "blobFloat 20s ease-in-out infinite",
         scrollHint: "scrollHint 2s ease-in-out infinite",
         pulseDot: "pulseDot 2s ease-in-out infinite",
+        caretBlink: "caretBlink 1s step-end infinite",
+        marquee: "marquee 30s linear infinite",
       },
     },
   },

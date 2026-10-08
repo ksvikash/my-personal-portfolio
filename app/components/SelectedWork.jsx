@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "../data/content";
@@ -26,38 +25,60 @@ function ProjectModal({ project, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 z-[500] flex items-center justify-center bg-ink/40 p-6 backdrop-blur-sm"
+      className="fixed inset-0 z-[500] flex items-center justify-center bg-black/60 p-6 backdrop-blur-sm"
       role="dialog"
       aria-modal="true"
       aria-labelledby="project-modal-title"
       onClick={onClose}
     >
       <div
-        className="relative max-h-[90vh] w-full max-w-lg overflow-y-auto rounded-2xl bg-canvas p-8 shadow-xl"
+        className="relative max-h-[88vh] w-full max-w-lg overflow-y-auto rounded-2xl border border-line bg-surface p-8 shadow-2xl"
         onClick={(e) => e.stopPropagation()}
       >
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 text-muted transition hover:bg-black/5 hover:text-ink"
+          className="absolute right-4 top-4 rounded-full p-2 text-muted transition hover:bg-surfaceLight hover:text-ink"
           aria-label="Close"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 6L6 18M6 6l12 12" />
           </svg>
         </button>
-        <p className="mb-2 text-[0.75rem] font-medium uppercase tracking-[0.2em] text-muted">
-          Project
-        </p>
+
+        <p className="section-eyebrow mb-4">Project</p>
         <h2 id="project-modal-title" className="font-serif text-2xl font-light text-ink md:text-3xl">
           {project.title}
         </h2>
-        <p className="mt-2 text-[0.85rem] text-muted">
-          {project.meta.join(" · ")}
-        </p>
-        <p className="mt-6 font-sans text-[1.05rem] leading-relaxed text-ink/90">
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          {project.meta.map((m) => (
+            <span key={m} className="tag-chip">{m}</span>
+          ))}
+        </div>
+
+        {project.metric && (
+          <div className="mt-6 flex items-baseline gap-3 rounded-lg border border-line bg-canvas px-5 py-4">
+            <span className="font-serif text-[2rem] font-light text-accent">
+              {project.metric.value}
+            </span>
+            <span className="font-mono text-[0.68rem] text-muted">
+              {project.metric.label}
+            </span>
+          </div>
+        )}
+
+        <p className="mt-6 text-[1rem] leading-relaxed text-inkSoft">
           {project.expanded}
         </p>
+
+        {project.tags && (
+          <div className="mt-6 flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span key={tag} className="tag-chip">{tag}</span>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -65,9 +86,6 @@ function ProjectModal({ project, onClose }) {
 
 function ProjectCard({ project, index, onOpen }) {
   const cardRef = useRef(null);
-  const imgRef = useRef(null);
-  const hoverRef = useRef(false);
-  const [hover, setHover] = useState(false);
   const fromLeft = index % 2 === 0;
 
   useEffect(() => {
@@ -77,18 +95,16 @@ function ProjectCard({ project, index, onOpen }) {
       gsap.fromTo(
         card,
         {
-          x: fromLeft ? -60 : 60,
-          rotation: fromLeft ? 5 : -5,
+          x: fromLeft ? -50 : 50,
           opacity: 0,
         },
         {
           x: 0,
-          rotation: 0,
           opacity: 1,
           scrollTrigger: {
             trigger: card,
             start: "top 90%",
-            end: "top 40%",
+            end: "top 50%",
             scrub: 0.65,
           },
           ease: "none",
@@ -98,129 +114,99 @@ function ProjectCard({ project, index, onOpen }) {
     return () => ctx.revert();
   }, [fromLeft]);
 
-  const onMove = (e) => {
-    const card = cardRef.current;
-    const img = imgRef.current;
-    if (!card || !img || !hoverRef.current) return;
-    const r = card.getBoundingClientRect();
-    const x = ((e.clientX - r.left) / r.width - 0.5) * 48;
-    const y = ((e.clientY - r.top) / r.height - 0.5) * 48;
-    img.style.transform = `translate(calc(-50% + ${x}px), calc(-30% + ${y}px)) scale(1)`;
-  };
-
   return (
     <article
       ref={cardRef}
-      className="relative flex min-h-0 flex-col gap-6 border-b border-black/[0.08] pb-[10vh] last:border-0 md:min-h-[320px] md:gap-8 md:pb-[15vh]"
-      onMouseEnter={() => {
-        hoverRef.current = true;
-        setHover(true);
-      }}
-      onMouseLeave={() => {
-        hoverRef.current = false;
-        setHover(false);
-        const img = imgRef.current;
-        if (img) img.style.transform = "translate(-50%, -20%) scale(0.85)";
-      }}
-      style={{ perspective: "1000px" }}
-      onMouseMove={onMove}
+      className="group relative flex flex-col gap-4 border-b border-line pb-[8vh] transition-colors duration-300 last:border-0 md:flex-row md:items-start md:justify-between md:gap-8 md:pb-[12vh]"
     >
-      <div className="flex flex-col justify-between gap-6 md:flex-row md:items-start">
-        <div className="max-w-xl">
-          <h3 className="font-serif text-[clamp(2rem,4vw,3.5rem)] font-light leading-tight text-ink">
-            {project.title}
-          </h3>
-          <p className="mt-4 font-sans text-[0.95rem] leading-relaxed text-muted">
-            {project.shortDescription}
-          </p>
-          <button
-            type="button"
-            data-cursor-hover
-            onClick={() => onOpen(project)}
-            className="mt-6 text-[0.85rem] font-medium text-ink underline decoration-black/20 underline-offset-4 transition hover:decoration-ink"
-          >
-            Read full case study
-          </button>
-        </div>
-        <div className="flex shrink-0 flex-col items-start gap-1 text-left text-[0.8rem] text-muted md:items-end md:pt-2 md:text-right">
-          {project.meta.map((m) => (
-            <span key={m}>{m}</span>
-          ))}
-        </div>
-      </div>
+      {/* Left — title + description */}
+      <div className="max-w-xl">
+        <p className="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">
+          {String(index + 1).padStart(2, "0")} — {project.meta.join(" / ")}
+        </p>
+        <h3 className="font-serif text-[clamp(1.6rem,3.5vw,2.8rem)] font-light leading-tight text-ink transition-colors duration-300 group-hover:text-accent">
+          {project.title}
+        </h3>
+        <p className="mt-4 max-w-lg text-[0.9rem] leading-relaxed text-inkSoft">
+          {project.shortDescription}
+        </p>
 
-      <div className="relative mt-2 h-44 w-full overflow-hidden rounded-xl md:hidden">
-        <Image
-          src={project.imageSrc}
-          alt={project.imageAlt}
-          fill
-          className="object-cover"
-          sizes="100vw"
-          priority={index === 0}
-        />
-      </div>
+        {project.tags && (
+          <div className="mt-4 flex flex-wrap gap-1.5">
+            {project.tags.map((tag) => (
+              <span key={tag} className="tag-chip">{tag}</span>
+            ))}
+          </div>
+        )}
 
-      <div
-        className={`pointer-events-none absolute left-1/2 top-[40%] z-10 hidden w-[45vw] max-w-3xl transition-opacity duration-500 md:top-1/3 md:block ${
-          hover ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ height: "min(60vh, 420px)" }}
-      >
-        <div
-          ref={imgRef}
-          className="absolute left-1/2 h-full w-full -translate-x-1/2 -translate-y-[20%] scale-[0.85] overflow-hidden rounded-lg shadow-lg transition-transform duration-300 ease-out"
-          style={{ transform: "translate(-50%, -20%) scale(0.85)" }}
+        <button
+          type="button"
+          data-cursor-hover
+          onClick={() => onOpen(project)}
+          className="mt-6 font-mono text-[0.72rem] font-medium uppercase tracking-[0.1em] text-inkSoft underline decoration-lineLight underline-offset-4 transition hover:decoration-accent hover:text-ink"
         >
-          <Image
-            src={project.imageSrc}
-            alt={project.imageAlt}
-            fill
-            className="object-cover"
-            sizes="(max-width: 768px) 90vw, 45vw"
-            priority={index === 0}
-          />
-        </div>
+          Read case study →
+        </button>
       </div>
+
+      {/* Right — metric */}
+      {project.metric && (
+        <div className="flex shrink-0 flex-col items-start gap-1 md:items-end md:pt-2 md:text-right">
+          <span className="font-serif text-[clamp(2.5rem,5vw,4rem)] font-light leading-none text-accent">
+            {project.metric.value}
+          </span>
+          <span className="font-mono text-[0.65rem] leading-tight text-muted md:max-w-[140px]">
+            {project.metric.label}
+          </span>
+        </div>
+      )}
     </article>
   );
 }
 
 export default function SelectedWork() {
-  const bgRef = useRef(null);
+  const sectionRef = useRef(null);
   const [active, setActive] = useState(null);
 
   useEffect(() => {
-    const bg = bgRef.current;
-    if (!bg) return;
+    const el = sectionRef.current;
+    if (!el) return;
     const ctx = gsap.context(() => {
-      gsap.to(bg, {
+      gsap.from(el.querySelectorAll(".work-reveal"), {
         scrollTrigger: {
-          trigger: "#work",
-          start: "top bottom",
+          trigger: el,
+          start: "top 75%",
           end: "bottom top",
-          scrub: true,
+          toggleActions: "play none none reverse",
         },
-        y: "-8%",
+        y: 40,
+        opacity: 0,
+        duration: 0.8,
+        stagger: 0.1,
+        ease: "power3.out",
       });
-    });
+    }, el);
     return () => ctx.revert();
   }, []);
 
   return (
     <section
       id="work"
-      className="relative min-h-screen px-[6vw] py-[12vh] md:px-[8vw] md:py-[15vh] lg:px-[10vw]"
+      ref={sectionRef}
+      className="relative px-[6vw] py-[12vh] md:px-[8vw] md:py-[15vh] lg:px-[10vw]"
     >
-      <div
-        ref={bgRef}
-        className="pointer-events-none absolute left-0 top-[-20%] h-[140%] w-full bg-gradient-to-b from-transparent via-lavender/30 to-transparent opacity-70"
-        aria-hidden
-      />
-
       <div className="relative z-10 mx-auto max-w-5xl">
-        <p className="mb-8 text-[0.75rem] font-medium uppercase tracking-[0.2em] text-muted">
-          SELECTED WORK
-        </p>
+        <div className="work-reveal mb-12 flex items-end justify-between gap-4">
+          <div>
+            <p className="section-eyebrow mb-6">03 — Selected Work</p>
+            <h2 className="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-light leading-tight text-ink">
+              Research &amp; systems, <span className="italic text-muted">from edge to clinic.</span>
+            </h2>
+          </div>
+          <span className="hidden shrink-0 font-mono text-[0.7rem] text-muted md:block">
+            {String(projects.length).padStart(2, "0")} / SELECTED
+          </span>
+        </div>
 
         <div className="flex flex-col gap-0">
           {projects.map((p, i) => (

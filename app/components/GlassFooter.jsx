@@ -18,7 +18,7 @@ export default function GlassFooter() {
       style={{
         opacity: visible ? 1 : 0,
         background:
-          "linear-gradient(to top, rgba(247, 247, 247, 0.98) 0%, rgba(247, 247, 247, 0.4) 45%, transparent 100%)",
+          "linear-gradient(to top, rgba(10,10,11,0.98) 0%, rgba(10,10,11,0.5) 45%, transparent 100%)",
         WebkitMaskImage: "linear-gradient(to top, black 55%, transparent 100%)",
         maskImage: "linear-gradient(to top, black 55%, transparent 100%)",
         backdropFilter: "blur(12px)",

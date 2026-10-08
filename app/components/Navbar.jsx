@@ -5,11 +5,17 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { person } from "../data/content";
 
-const NAV_LINKS = ["About", "Work", "Contact"];
+const NAV_LINKS = [
+  { label: "About", num: "01" },
+  { label: "Skills", num: "02" },
+  { label: "Work", num: "03" },
+  { label: "Publications", num: "04" },
+  { label: "Contact", num: "05" },
+];
 
 function SocialIcon({ href, label, download, children }) {
   const className =
-    "flex h-12 w-12 items-center justify-center rounded-full border border-black/15 text-ink transition-all duration-300 ease-smooth hover:scale-105 hover:border-ink";
+    "flex h-12 w-12 items-center justify-center rounded-full border border-line text-ink transition-all duration-300 ease-smooth hover:scale-105 hover:border-accent hover:text-accent";
 
   if (download) {
     return (
@@ -70,29 +76,38 @@ export default function Navbar() {
         className={`fixed left-0 right-0 top-0 transition-all duration-[400ms] ease-smooth ${menuOpen ? "z-[280]" : "z-[200]"}`}
         style={{
           padding: scrolled ? "0.875rem 5vw" : "1.25rem 5vw",
-          backgroundColor: scrolled ? "rgba(247, 247, 247, 0.75)" : "transparent",
+          backgroundColor: scrolled ? "rgba(10,10,11,0.80)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(0,0,0,0.06)" : "1px solid transparent",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
         }}
       >
         <nav className="flex items-center justify-between gap-4">
           <Link
             href="#top"
             onClick={closeMenu}
-            className="min-w-0 max-w-[min(100%,14rem)] truncate font-serif text-[clamp(0.95rem,2.5vw,1.1rem)] font-normal tracking-[-0.02em] text-ink sm:max-w-none sm:overflow-visible sm:whitespace-normal md:max-w-none"
+            className="flex min-w-0 items-baseline gap-2 sm:max-w-none md:max-w-none"
           >
-            {person.fullName}
+            <span className="truncate font-serif text-[clamp(0.9rem,2vw,1.05rem)] font-normal tracking-[-0.02em] text-ink">
+              {person.shortName}
+            </span>
+            <span className="hidden items-center gap-1.5 lg:inline-flex">
+              <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulseDot" />
+              <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-muted">
+                / {person.role}
+              </span>
+            </span>
           </Link>
 
-          <ul className="absolute left-1/2 hidden -translate-x-1/2 md:flex md:items-center md:gap-6 lg:gap-10">
-            {NAV_LINKS.map((label) => (
-              <li key={label}>
+          <ul className="absolute left-1/2 hidden -translate-x-1/2 md:flex md:items-center md:gap-5 lg:gap-8">
+            {NAV_LINKS.map((link) => (
+              <li key={link.label}>
                 <a
-                  href={`#${label.toLowerCase()}`}
-                  className="nav-link text-[0.8rem] font-normal text-muted transition-colors duration-300 hover:text-ink"
+                  href={`#${link.label.toLowerCase()}`}
+                  className="nav-link font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-colors duration-300 hover:text-ink"
                 >
-                  {label}
+                  <span className="text-muted">{link.num}</span>{" "}
+                  <span>{link.label}</span>
                 </a>
               </li>
             ))}
@@ -103,7 +118,7 @@ export default function Navbar() {
               href={person.cvPath}
               download
               data-cursor-hover
-              className="hidden items-center justify-center rounded-full bg-ink px-5 py-[0.6rem] text-[0.75rem] font-medium text-white transition-transform duration-300 ease-smooth hover:scale-[1.03] hover:bg-[#2a2a2a] md:inline-flex lg:px-6"
+              className="hidden items-center justify-center rounded-full border border-lineLight bg-surface px-5 py-[0.6rem] font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-ink transition-all duration-300 ease-smooth hover:border-accent hover:bg-surfaceLight md:inline-flex lg:px-6"
             >
               Download CV
             </a>
@@ -146,24 +161,25 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-[230] flex flex-col bg-[rgba(247,247,247,0.95)] backdrop-blur-[30px] md:hidden"
+            className="fixed inset-0 z-[230] flex flex-col bg-[rgba(10,10,11,0.97)] backdrop-blur-[30px] md:hidden"
           >
-            <nav className="flex flex-1 flex-col items-center justify-center gap-10 px-8 pt-20">
-              {NAV_LINKS.map((label, i) => (
+            <nav className="flex flex-1 flex-col items-center justify-center gap-8 px-8 pt-20">
+              {NAV_LINKS.map((link, i) => (
                 <motion.a
-                  key={label}
-                  href={`#${label.toLowerCase()}`}
+                  key={link.label}
+                  href={`#${link.label.toLowerCase()}`}
                   onClick={closeMenu}
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    delay: 0.1 * (i + 1),
+                    delay: 0.08 * (i + 1),
                     duration: 0.45,
                     ease: [0.23, 1, 0.32, 1],
                   }}
-                  className="font-serif text-[clamp(1.75rem,8vw,2.75rem)] font-light text-ink"
+                  className="flex items-baseline gap-3 font-serif text-[clamp(1.6rem,7vw,2.5rem)] font-light text-ink"
                 >
-                  {label}
+                  <span className="font-mono text-[0.7rem] text-muted">{link.num}</span>
+                  {link.label}
                 </motion.a>
               ))}
             </nav>
