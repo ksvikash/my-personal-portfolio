@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { AnimatePresence, motion } from "motion/react";
-import { hero, heroStats, person } from "../data/content";
+import { hero, person } from "../data/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,12 +24,10 @@ export default function Hero() {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
       tl.from(".hero-badge", { opacity: 0, y: 16, duration: 0.6 }, 0)
-        .from(".hero-label", { opacity: 0, y: 12, duration: 0.5 }, 0.15)
-        .from(".hero-headline", { opacity: 0, y: 24, duration: 0.7 }, 0.25)
-        .from(".hero-sub", { opacity: 0, y: 12, duration: 0.5 }, 0.45)
-        .from(".hero-terminal", { opacity: 0, y: 16, duration: 0.5 }, 0.55)
-        .from(".hero-stat", { opacity: 0, y: 12, duration: 0.5, stagger: 0.08 }, 0.7)
-        .from(".hero-scroll", { opacity: 0, y: 8, duration: 0.5 }, 0.9);
+        .from(".hero-headline", { opacity: 0, y: 24, duration: 0.7 }, 0.15)
+        .from(".hero-sub", { opacity: 0, y: 12, duration: 0.5 }, 0.35)
+        .from(".hero-terminal", { opacity: 0, y: 16, duration: 0.5 }, 0.45)
+        .from(".hero-scroll", { opacity: 0, y: 8, duration: 0.5 }, 0.6);
 
       const heroEl = rootRef.current;
       if (heroEl && contentRef.current) {
@@ -82,11 +80,6 @@ export default function Hero() {
           Open to Work · {person.location}
         </div>
 
-        {/* Mono label */}
-        <p className="hero-label mb-5 font-mono text-[0.68rem] font-medium uppercase tracking-[0.18em] text-muted sm:text-[0.72rem]">
-          {person.fullName} / {person.role}
-        </p>
-
         {/* Headline */}
         <h1 className="hero-headline font-serif text-[clamp(2rem,7vw,3.5rem)] font-light leading-[1.15] lg:text-[clamp(2.5rem,5.5vw,4.5rem)]">
           Building{" "}
@@ -108,7 +101,7 @@ export default function Hero() {
         </h1>
 
         {/* Subtitle */}
-        <p className="hero-sub mt-6 font-mono text-[0.75rem] tracking-[0.08em] text-inkSoft sm:text-[0.8rem]">
+        <p className="hero-sub mt-6 max-w-xl font-mono text-[0.72rem] tracking-[0.05em] text-inkSoft sm:text-[0.78rem]">
           {hero.subtitle}
         </p>
 
@@ -123,23 +116,6 @@ export default function Hero() {
             ~/vikash $ deploy intelligent-systems
           </span>
           <span className="caret shrink-0" aria-hidden />
-        </div>
-
-        {/* Stats row */}
-        <div className="mt-12 grid w-full max-w-2xl grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
-          {heroStats.map((stat, i) => (
-            <div
-              key={i}
-              className="hero-stat flex flex-col items-center justify-center bg-canvas px-3 py-5 sm:px-4"
-            >
-              <span className="font-serif text-[1.5rem] font-light text-ink sm:text-[1.8rem]">
-                {stat.value}
-              </span>
-              <span className="mt-1 text-center font-mono text-[0.6rem] leading-tight text-muted sm:text-[0.62rem]">
-                {stat.label}
-              </span>
-            </div>
-          ))}
         </div>
       </div>
 

@@ -7,10 +7,11 @@ import { person } from "../data/content";
 
 const NAV_LINKS = [
   { label: "About", num: "01" },
-  { label: "Skills", num: "02" },
-  { label: "Work", num: "03" },
-  { label: "Publications", num: "04" },
-  { label: "Contact", num: "05" },
+  { label: "Education", num: "02" },
+  { label: "Skills", num: "03" },
+  { label: "Work", num: "04" },
+  { label: "Publications", num: "05" },
+  { label: "Contact", num: "06" },
 ];
 
 function SocialIcon({ href, label, download, children }) {
@@ -76,7 +77,7 @@ export default function Navbar() {
         className={`fixed left-0 right-0 top-0 transition-all duration-[400ms] ease-smooth ${menuOpen ? "z-[280]" : "z-[200]"}`}
         style={{
           padding: scrolled ? "0.875rem 5vw" : "1.25rem 5vw",
-          backgroundColor: scrolled ? "rgba(10,10,11,0.80)" : "transparent",
+          backgroundColor: scrolled ? "rgba(13,13,17,0.80)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.06)" : "1px solid transparent",
@@ -86,25 +87,20 @@ export default function Navbar() {
           <Link
             href="#top"
             onClick={closeMenu}
-            className="flex min-w-0 items-baseline gap-2 sm:max-w-none md:max-w-none"
+            className="flex min-w-0 items-center gap-2 sm:max-w-none md:max-w-none"
           >
             <span className="truncate font-serif text-[clamp(0.9rem,2vw,1.05rem)] font-normal tracking-[-0.02em] text-ink">
               {person.shortName}
             </span>
-            <span className="hidden items-center gap-1.5 lg:inline-flex">
-              <span className="h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulseDot" />
-              <span className="font-mono text-[0.6rem] uppercase tracking-[0.15em] text-muted">
-                / {person.role}
-              </span>
-            </span>
+            <span className="hidden h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulseDot lg:inline-block" />
           </Link>
 
-          <ul className="absolute left-1/2 hidden -translate-x-1/2 md:flex md:items-center md:gap-5 lg:gap-8">
+          <ul className="absolute left-1/2 hidden -translate-x-1/2 md:flex md:items-center md:gap-4 lg:gap-6">
             {NAV_LINKS.map((link) => (
               <li key={link.label}>
                 <a
                   href={`#${link.label.toLowerCase()}`}
-                  className="nav-link font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-colors duration-300 hover:text-ink"
+                  className="nav-link font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-colors duration-300 hover:text-ink"
                 >
                   <span className="text-muted">{link.num}</span>{" "}
                   <span>{link.label}</span>
@@ -161,9 +157,9 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.35 }}
-            className="fixed inset-0 z-[230] flex flex-col bg-[rgba(10,10,11,0.97)] backdrop-blur-[30px] md:hidden"
+            className="fixed inset-0 z-[230] flex flex-col bg-[rgba(13,13,17,0.97)] backdrop-blur-[30px] md:hidden"
           >
-            <nav className="flex flex-1 flex-col items-center justify-center gap-8 px-8 pt-20">
+            <nav className="flex flex-1 flex-col items-center justify-center gap-6 px-8 pt-20">
               {NAV_LINKS.map((link, i) => (
                 <motion.a
                   key={link.label}
@@ -172,11 +168,11 @@ export default function Navbar() {
                   initial={{ opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{
-                    delay: 0.08 * (i + 1),
+                    delay: 0.06 * (i + 1),
                     duration: 0.45,
                     ease: [0.23, 1, 0.32, 1],
                   }}
-                  className="flex items-baseline gap-3 font-serif text-[clamp(1.6rem,7vw,2.5rem)] font-light text-ink"
+                  className="flex items-baseline gap-3 font-serif text-[clamp(1.5rem,6vw,2.3rem)] font-light text-ink"
                 >
                   <span className="font-mono text-[0.7rem] text-muted">{link.num}</span>
                   {link.label}

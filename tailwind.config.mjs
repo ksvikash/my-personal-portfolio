@@ -9,9 +9,9 @@ export default {
     extend: {
       colors: {
         // Dark canvas system
-        canvas: "#0A0A0B",
-        surface: "#111114",
-        surfaceLight: "#1A1A20",
+        canvas: "#0D0D11",
+        surface: "#141418",
+        surfaceLight: "#1C1C22",
         ink: "#EDEDED",
         inkSoft: "#B0B0B8",
         muted: "#6B6B76",
@@ -29,7 +29,7 @@ export default {
         lavender: "#3A2A5C",
         ice: "#1A2438",
         cream: "#2A2620",
-        term: "#0A0A0A",
+        term: "#0B0B0E",
       },
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "sans-serif"],

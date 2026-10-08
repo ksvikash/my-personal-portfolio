@@ -17,9 +17,9 @@ export default function Contact() {
       />
 
       <div className="relative z-10 mx-auto max-w-[700px] text-center">
-        <p className="section-eyebrow mx-auto mb-8 justify-center">05 — Contact</p>
+        <p className="section-eyebrow mx-auto mb-8 justify-center">06 — Contact</p>
         <h2 className="font-serif text-[clamp(2rem,6vw,4rem)] font-light leading-[1.15] text-ink">
-          Let&apos;s build something <span className="italic text-accent">great.</span>
+          Get in <span className="italic text-accent">Touch.</span>
         </h2>
         <p className="mx-auto mt-6 max-w-[420px] text-[1.05rem] leading-relaxed text-inkSoft">
           Open for collaborations, full-time roles, and interesting projects.

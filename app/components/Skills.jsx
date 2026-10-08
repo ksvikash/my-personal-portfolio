@@ -39,7 +39,7 @@ export default function Skills() {
     >
       <div className="mx-auto w-full max-w-5xl">
         <div className="skills-reveal mb-12">
-          <p className="section-eyebrow mb-6">02 — Stack &amp; Skills</p>
+          <p className="section-eyebrow mb-6">03 — Stack &amp; Skills</p>
           <h2 className="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-light leading-tight text-ink">
             Tools for <span className="italic text-muted">building</span> and{" "}
             <span className="italic text-muted">deploying</span> intelligent systems.

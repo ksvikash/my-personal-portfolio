@@ -7,6 +7,14 @@ import { publications, leadership } from "../data/content";
 
 gsap.registerPlugin(ScrollTrigger);
 
+function MonogramBadge({ monogram }) {
+  return (
+    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-lineLight bg-surface font-mono text-[0.7rem] font-medium text-inkSoft transition-colors duration-300 group-hover:border-accent group-hover:text-accent md:h-14 md:w-14 md:text-[0.8rem]">
+      {monogram}
+    </div>
+  );
+}
+
 export default function Publications() {
   const sectionRef = useRef(null);
 
@@ -48,7 +56,7 @@ export default function Publications() {
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <div className="pub-reveal mb-12">
-          <p className="section-eyebrow mb-6">04 — Publications &amp; Awards</p>
+          <p className="section-eyebrow mb-6">05 — Publications &amp; Awards</p>
           <h2 className="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-light leading-tight text-ink">
             Peer-reviewed work, <span className="italic text-accent">recognized at IEEE.</span>
           </h2>
@@ -95,28 +103,29 @@ export default function Publications() {
           ))}
         </div>
 
-        {/* Leadership */}
+        {/* Leadership & Extracurriculars */}
         <div className="pub-reveal mt-16">
-          <p className="section-eyebrow mb-6">Leadership &amp; Extracurriculars</p>
-          <ul className="flex flex-col">
+          <p className="section-eyebrow mb-8">Leadership &amp; Extracurriculars</p>
+          <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2">
             {leadership.map((item, i) => (
-              <li
+              <div
                 key={i}
-                className="group flex flex-col gap-2 border-b border-line py-5 transition-colors duration-300 hover:bg-surface/40 sm:flex-row sm:items-start sm:justify-between sm:gap-6"
+                className="group flex flex-col gap-4 bg-canvas p-6 transition-colors duration-300 hover:bg-surface/50"
               >
-                <div className="flex flex-col gap-1">
-                  <span className="text-[0.95rem] text-ink">{item.role}</span>
-                  <span className="font-mono text-[0.68rem] text-muted">{item.org}</span>
-                  <p className="mt-1 max-w-xl text-[0.85rem] leading-relaxed text-inkSoft">
-                    {item.description}
-                  </p>
+                <div className="flex items-start gap-4">
+                  <MonogramBadge monogram={item.monogram} />
+                  <div className="flex min-w-0 flex-col gap-1">
+                    <span className="text-[0.95rem] text-ink">{item.role}</span>
+                    <span className="font-mono text-[0.68rem] text-muted">{item.org}</span>
+                    <span className="font-mono text-[0.62rem] text-mutedSoft">{item.period}</span>
+                  </div>
                 </div>
-                <span className="shrink-0 font-mono text-[0.68rem] text-muted sm:pt-1">
-                  {item.period}
-                </span>
-              </li>
+                <p className="text-[0.85rem] leading-relaxed text-inkSoft">
+                  {item.description}
+                </p>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </div>
     </section>
