@@ -7,6 +7,7 @@ import SelectedWork from "./components/SelectedWork";
 import Publications from "./components/Publications";
 import Contact from "./components/Contact";
 import GlassFooter from "./components/GlassFooter";
+import Experience from "./components/Experience";
 
 export default function Home() {
   return (
@@ -16,6 +17,7 @@ export default function Home() {
         <Hero />
         <About />
         <Education />
+        <Experience />
         <Skills />
         <SelectedWork />
         <Publications />

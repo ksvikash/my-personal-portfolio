@@ -56,7 +56,7 @@ export default function Publications() {
 
       <div className="relative z-10 mx-auto w-full max-w-5xl">
         <div className="pub-reveal mb-12">
-          <p className="section-eyebrow mb-6">05 — Publications &amp; Awards</p>
+          <p className="section-eyebrow mb-6">06 — Publications &amp; Awards</p>
           <h2 className="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-light leading-tight text-ink">
             Peer-reviewed work, <span className="italic text-accent">recognized at IEEE.</span>
           </h2>
@@ -105,7 +105,7 @@ export default function Publications() {
 
         {/* Leadership & Extracurriculars */}
         <div className="pub-reveal mt-16">
-          <p className="section-eyebrow mb-8">Leadership &amp; Extracurriculars</p>
+          <p className="section-eyebrow mb-8">07 - Leadership &amp; Extracurriculars</p>
           <div className="grid grid-cols-1 gap-px overflow-hidden rounded-xl border border-line bg-line md:grid-cols-2">
             {leadership.map((item, i) => (
               <div

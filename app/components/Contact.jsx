@@ -17,17 +17,17 @@ export default function Contact() {
       />
 
       <div className="relative z-10 mx-auto max-w-[700px] text-center">
-        <p className="section-eyebrow mx-auto mb-8 justify-center">06 — Contact</p>
+        <p className="section-eyebrow mx-auto mb-8 justify-center"></p>
         <h2 className="font-serif text-[clamp(2rem,6vw,4rem)] font-light leading-[1.15] text-ink">
           Get in <span className="italic text-accent">Touch.</span>
         </h2>
         <p className="mx-auto mt-6 max-w-[420px] text-[1.05rem] leading-relaxed text-inkSoft">
-          Open for collaborations, full-time roles, and interesting projects.
+          Open for internships.
         </p>
 
         {/* Availability strip */}
         <p className="mt-6 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">
-          <span className="text-success">●</span> Available Q2 2026 · {person.location} · {person.timezone}
+          <span className="text-success">●</span> Available from Jan 2027 · {person.location} · {person.timezone}
         </p>
 
         {/* CTAs */}

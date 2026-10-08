@@ -5,13 +5,23 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { person } from "../data/content";
 
+// const NAV_LINKS = [
+//   { label: "About", num: "01" },
+//   { label: "Education", num: "02" },
+//   { label: "Skills", num: "03" },
+//   { label: "Work", num: "04" },
+//   { label: "Publications", num: "05" },
+//   { label: "Contact", num: "06" },
+// ];
+
 const NAV_LINKS = [
-  { label: "About", num: "01" },
-  { label: "Education", num: "02" },
-  { label: "Skills", num: "03" },
-  { label: "Work", num: "04" },
-  { label: "Publications", num: "05" },
-  { label: "Contact", num: "06" },
+  { label: "About" },
+  { label: "Education" },
+  { label: "Experience" },
+  { label: "Skills" },
+  { label: "Work" },
+  { label: "Publications" },
+  { label: "Contact" },
 ];
 
 function SocialIcon({ href, label, download, children }) {
@@ -102,7 +112,7 @@ export default function Navbar() {
                   href={`#${link.label.toLowerCase()}`}
                   className="nav-link font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-colors duration-300 hover:text-ink"
                 >
-                  <span className="text-muted">{link.num}</span>{" "}
+                  {/* <span className="text-muted">{link.num}</span>{" "} */}
                   <span>{link.label}</span>
                 </a>
               </li>
@@ -174,7 +184,7 @@ export default function Navbar() {
                   }}
                   className="flex items-baseline gap-3 font-serif text-[clamp(1.5rem,6vw,2.3rem)] font-light text-ink"
                 >
-                  <span className="font-mono text-[0.7rem] text-muted">{link.num}</span>
+                  {/* <span className="font-mono text-[0.7rem] text-muted">{link.num}</span> */}
                   {link.label}
                 </motion.a>
               ))}

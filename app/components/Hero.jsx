@@ -113,7 +113,7 @@ export default function Hero() {
             <span className="h-2.5 w-2.5 rounded-full bg-[#27C93F]" />
           </div>
           <span className="truncate font-mono text-[0.7rem] text-inkSoft sm:text-[0.75rem]">
-            ~/vikash $ deploy intelligent-systems
+            ~/vikash $ looking for internships
           </span>
           <span className="caret shrink-0" aria-hidden />
         </div>

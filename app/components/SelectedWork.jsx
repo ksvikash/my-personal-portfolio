@@ -247,7 +247,7 @@ export default function SelectedWork() {
       <div className="relative z-10 mx-auto max-w-5xl">
         <div className="work-reveal mb-12 flex items-end justify-between gap-4">
           <div>
-            <p className="section-eyebrow mb-6">04 — Selected Work</p>
+            <p className="section-eyebrow mb-6">05 — Selected Work</p>
             <h2 className="font-serif text-[clamp(1.6rem,4vw,2.5rem)] font-light leading-tight text-ink">
               Research &amp; systems, <span className="italic text-muted">from edge to clinic.</span>
             </h2>
