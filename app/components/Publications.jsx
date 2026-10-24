@@ -4,12 +4,13 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { publications, leadership } from "../data/content";
+import { prefersReducedMotion } from "../utils/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
 function MonogramBadge({ monogram }) {
   return (
-    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-lineLight bg-surface font-mono text-[0.7rem] font-medium text-inkSoft transition-colors duration-300 group-hover:border-accent group-hover:text-accent md:h-14 md:w-14 md:text-[0.8rem]">
+    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-lineLight bg-surface font-mono text-xs font-medium text-inkSoft transition-colors duration-300 group-hover:border-accent group-hover:text-accent md:h-14 md:w-14 md:text-sm">
       {monogram}
     </div>
   );
@@ -20,7 +21,7 @@ export default function Publications() {
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".pub-reveal"), {
         scrollTrigger: {
@@ -72,10 +73,10 @@ export default function Publications() {
               {/* Left column — meta */}
               <div className="flex flex-col gap-3">
                 <span className="tag-chip w-fit">{pub.type}</span>
-                <span className="w-fit rounded-full border border-warning/30 bg-warning/10 px-3 py-1 font-mono text-[0.65rem] font-medium text-warning">
+                <span className="w-fit rounded-full border border-warning/30 bg-warning/10 px-3 py-1 font-mono text-xs font-medium text-warning">
                   {pub.award}
                 </span>
-                <span className="font-mono text-[0.7rem] text-muted">
+                <span className="font-mono text-xs text-muted sm:text-[0.8125rem]">
                   {pub.venue} · {pub.year}
                 </span>
               </div>
@@ -85,7 +86,7 @@ export default function Publications() {
                 <h3 className="font-serif text-[1.3rem] font-light leading-snug text-ink md:text-[1.5rem]">
                   {pub.title}
                 </h3>
-                <p className="font-mono text-[0.68rem] text-muted">{pub.authors}</p>
+                <p className="font-mono text-xs text-muted sm:text-[0.8125rem]">{pub.authors}</p>
                 <p className="text-[0.9rem] leading-relaxed text-inkSoft">
                   {pub.abstract}
                 </p>
@@ -94,7 +95,7 @@ export default function Publications() {
                   target="_blank"
                   rel="noopener noreferrer"
                   data-cursor-hover
-                  className="mt-2 inline-flex w-fit items-center gap-1 font-mono text-[0.72rem] font-medium uppercase tracking-[0.1em] text-accent transition-colors hover:text-ink"
+                  className="mt-2 inline-flex min-h-11 w-fit items-center gap-1 font-mono text-xs font-medium uppercase tracking-[0.1em] text-accent transition-colors hover:text-ink sm:text-[0.8125rem]"
                 >
                   Read on IEEE Xplore ↗
                 </a>
@@ -116,8 +117,8 @@ export default function Publications() {
                   <MonogramBadge monogram={item.monogram} />
                   <div className="flex min-w-0 flex-col gap-1">
                     <span className="text-[0.95rem] text-ink">{item.role}</span>
-                    <span className="font-mono text-[0.68rem] text-muted">{item.org}</span>
-                    <span className="font-mono text-[0.62rem] text-mutedSoft">{item.period}</span>
+                    <span className="font-mono text-xs text-muted sm:text-[0.8125rem]">{item.org}</span>
+                    <span className="font-mono text-xs text-mutedSoft">{item.period}</span>
                   </div>
                 </div>
                 <p className="text-[0.85rem] leading-relaxed text-inkSoft">

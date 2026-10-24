@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "../data/content";
+import { prefersReducedMotion } from "../utils/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -17,7 +18,7 @@ function ProjectLink({ link }) {
         target="_blank"
         rel="noopener noreferrer"
         data-cursor-hover
-        className="inline-flex items-center gap-2 rounded-full border border-lineLight px-5 py-2.5 font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink"
+        className="inline-flex min-h-11 items-center gap-2 rounded-full border border-lineLight px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink sm:text-[0.8125rem]"
       >
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
           <path d="M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.5.5.08.66-.23.66-.5v-1.69c-2.77.6-3.36-1.34-3.36-1.34-.46-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.87 1.52 2.34 1.07 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.92 0-1.11.38-2 1.03-2.71-.1-.25-.45-1.29.1-2.64 0 0 .84-.27 2.75 1.02.79-.22 1.65-.33 2.5-.33.85 0 1.71.11 2.5.33 1.91-1.29 2.75-1.02 2.75-1.02.55 1.35.2 2.39.1 2.64.65.71 1.03 1.6 1.03 2.71 0 3.82-2.34 4.66-4.57 4.91.36.31.69.92.69 1.85V21c0 .27.16.59.67.5C19.14 20.16 22 16.42 22 12A10 10 0 0 0 12 2z" />
@@ -33,7 +34,7 @@ function ProjectLink({ link }) {
       target="_blank"
       rel="noopener noreferrer"
       data-cursor-hover
-      className="inline-flex items-center gap-2 rounded-full border border-lineLight px-5 py-2.5 font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink"
+      className="inline-flex min-h-11 items-center gap-2 rounded-full border border-lineLight px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink sm:text-[0.8125rem]"
     >
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden>
         <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
@@ -75,8 +76,8 @@ function ProjectModal({ project, onClose }) {
         <button
           type="button"
           onClick={onClose}
-          className="absolute right-4 top-4 rounded-full p-2 text-muted transition hover:bg-surfaceLight hover:text-ink"
-          aria-label="Close"
+          className="absolute right-4 top-4 inline-flex min-h-11 min-w-11 items-center justify-center rounded-full text-muted transition hover:bg-surfaceLight hover:text-ink"
+          aria-label="Close dialog"
         >
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <path d="M18 6L6 18M6 6l12 12" />
@@ -99,7 +100,7 @@ function ProjectModal({ project, onClose }) {
             <span className="font-serif text-[2rem] font-light text-accent">
               {project.metric.value}
             </span>
-            <span className="font-mono text-[0.68rem] text-muted">
+            <span className="font-mono text-xs text-muted sm:text-[0.8125rem]">
               {project.metric.label}
             </span>
           </div>
@@ -133,7 +134,7 @@ function ProjectCard({ project, index, onOpen }) {
 
   useEffect(() => {
     const card = cardRef.current;
-    if (!card) return;
+    if (!card || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.fromTo(
         card,
@@ -164,7 +165,7 @@ function ProjectCard({ project, index, onOpen }) {
     >
       {/* Left — title + description */}
       <div className="max-w-xl">
-        <p className="mb-3 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">
+        <p className="mb-3 font-mono text-xs uppercase tracking-[0.12em] text-muted sm:text-[0.8125rem]">
           {String(index + 1).padStart(2, "0")} — {project.meta.join(" / ")}
         </p>
         <h3 className="font-serif text-[clamp(1.6rem,3.5vw,2.8rem)] font-light leading-tight text-ink transition-colors duration-300 group-hover:text-accent">
@@ -187,7 +188,7 @@ function ProjectCard({ project, index, onOpen }) {
             type="button"
             data-cursor-hover
             onClick={() => onOpen(project)}
-            className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.1em] text-inkSoft underline decoration-lineLight underline-offset-4 transition hover:decoration-accent hover:text-ink"
+            className="inline-flex min-h-11 items-center font-mono text-xs font-medium uppercase tracking-[0.1em] text-inkSoft underline decoration-lineLight underline-offset-4 transition hover:decoration-accent hover:text-ink sm:text-[0.8125rem]"
           >
             Read case study →
           </button>
@@ -204,7 +205,7 @@ function ProjectCard({ project, index, onOpen }) {
           <span className="font-serif text-[clamp(2.5rem,5vw,4rem)] font-light leading-none text-accent">
             {project.metric.value}
           </span>
-          <span className="font-mono text-[0.65rem] leading-tight text-muted md:max-w-[140px]">
+          <span className="font-mono text-xs leading-tight text-muted md:max-w-[140px]">
             {project.metric.label}
           </span>
         </div>
@@ -219,7 +220,7 @@ export default function SelectedWork() {
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".work-reveal"), {
         scrollTrigger: {
@@ -252,7 +253,7 @@ export default function SelectedWork() {
               Research &amp; systems, <span className="italic text-muted">from edge to clinic.</span>
             </h2>
           </div>
-          <span className="hidden shrink-0 font-mono text-[0.7rem] text-muted md:block">
+          <span className="hidden shrink-0 font-mono text-xs text-muted md:block sm:text-[0.8125rem]">
             {String(projects.length).padStart(2, "0")} / SELECTED
           </span>
         </div>

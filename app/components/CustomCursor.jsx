@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
 const LERP = 0.15;
 const MAX_PARTICLES = 50;
 
 export default function CustomCursor() {
+  const reducedMotion = usePrefersReducedMotion();
   const ringRef = useRef(null);
   const canvasRef = useRef(null);
   const pos = useRef({ x: 0, y: 0 });
@@ -24,7 +26,7 @@ export default function CustomCursor() {
   }, []);
 
   useEffect(() => {
-    if (!finePointer) return;
+    if (!finePointer || reducedMotion) return;
 
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -116,9 +118,9 @@ export default function CustomCursor() {
       window.removeEventListener("mousemove", move);
       cancelAnimationFrame(raf.current);
     };
-  }, [finePointer]);
+  }, [finePointer, reducedMotion]);
 
-  if (!finePointer) return null;
+  if (!finePointer || reducedMotion) return null;
 
   return (
     <>

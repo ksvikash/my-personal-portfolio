@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { person } from "../data/content";
+import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
 
 // const NAV_LINKS = [
 //   { label: "About", num: "01" },
@@ -51,6 +52,7 @@ function SocialIcon({ href, label, download, children }) {
 }
 
 export default function Navbar() {
+  const reducedMotion = usePrefersReducedMotion();
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
@@ -86,7 +88,10 @@ export default function Navbar() {
       <header
         className={`fixed left-0 right-0 top-0 transition-all duration-[400ms] ease-smooth ${menuOpen ? "z-[280]" : "z-[200]"}`}
         style={{
-          padding: scrolled ? "0.875rem 5vw" : "1.25rem 5vw",
+          paddingLeft: "5vw",
+          paddingRight: "5vw",
+          paddingBottom: scrolled ? "0.875rem" : "1.25rem",
+          paddingTop: `max(${scrolled ? "0.875rem" : "1.25rem"}, env(safe-area-inset-top))`,
           backgroundColor: scrolled ? "rgba(13,13,17,0.80)" : "transparent",
           backdropFilter: scrolled ? "blur(20px)" : "none",
           WebkitBackdropFilter: scrolled ? "blur(20px)" : "none",
@@ -97,12 +102,15 @@ export default function Navbar() {
           <Link
             href="#top"
             onClick={closeMenu}
-            className="flex min-w-0 items-center gap-2 sm:max-w-none md:max-w-none"
+            className="inline-flex min-h-11 min-w-0 items-center gap-2 sm:max-w-none md:max-w-none"
           >
             <span className="truncate font-serif text-[clamp(0.9rem,2vw,1.05rem)] font-normal tracking-[-0.02em] text-ink">
               {person.shortName}
             </span>
-            <span className="hidden h-1.5 w-1.5 rounded-full bg-success shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulseDot lg:inline-block" />
+            <span
+              className="hidden h-1.5 w-1.5 shrink-0 rounded-full bg-success shadow-[0_0_8px_rgba(34,197,94,0.6)] animate-pulseDot lg:inline-block"
+              aria-hidden
+            />
           </Link>
 
           <ul className="absolute left-1/2 hidden -translate-x-1/2 md:flex md:items-center md:gap-4 lg:gap-6">
@@ -110,7 +118,7 @@ export default function Navbar() {
               <li key={link.label}>
                 <a
                   href={`#${link.label.toLowerCase()}`}
-                  className="nav-link font-mono text-[0.68rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-colors duration-300 hover:text-ink"
+                  className="nav-link font-mono text-xs font-medium uppercase tracking-[0.1em] text-inkSoft transition-colors duration-300 hover:text-ink sm:text-[0.8125rem]"
                 >
                   {/* <span className="text-muted">{link.num}</span>{" "} */}
                   <span>{link.label}</span>
@@ -124,7 +132,7 @@ export default function Navbar() {
               href={person.cvPath}
               download
               data-cursor-hover
-              className="hidden items-center justify-center rounded-full border border-lineLight bg-surface px-5 py-[0.6rem] font-mono text-[0.7rem] font-medium uppercase tracking-[0.1em] text-ink transition-all duration-300 ease-smooth hover:border-accent hover:bg-surfaceLight md:inline-flex lg:px-6"
+              className="hidden min-h-11 items-center justify-center rounded-full border border-lineLight bg-surface px-5 py-2.5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-ink transition-all duration-300 ease-smooth hover:border-accent hover:bg-surfaceLight md:inline-flex lg:px-6"
             >
               Download CV
             </a>
@@ -166,7 +174,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.35 }}
+            transition={{ duration: reducedMotion ? 0 : 0.35 }}
             className="fixed inset-0 z-[230] flex flex-col bg-[rgba(13,13,17,0.97)] backdrop-blur-[30px] md:hidden"
           >
             <nav className="flex flex-1 flex-col items-center justify-center gap-6 px-8 pt-20">
@@ -175,25 +183,28 @@ export default function Navbar() {
                   key={link.label}
                   href={`#${link.label.toLowerCase()}`}
                   onClick={closeMenu}
-                  initial={{ opacity: 0, y: 24 }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 24 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{
-                    delay: 0.06 * (i + 1),
-                    duration: 0.45,
-                    ease: [0.23, 1, 0.32, 1],
-                  }}
-                  className="flex items-baseline gap-3 font-serif text-[clamp(1.5rem,6vw,2.3rem)] font-light text-ink"
+                  transition={
+                    reducedMotion
+                      ? { duration: 0 }
+                      : {
+                          delay: 0.06 * (i + 1),
+                          duration: 0.45,
+                          ease: [0.23, 1, 0.32, 1],
+                        }
+                  }
+                  className="flex min-h-11 items-center font-serif text-[clamp(1.5rem,6vw,2.3rem)] font-light text-ink"
                 >
-                  {/* <span className="font-mono text-[0.7rem] text-muted">{link.num}</span> */}
                   {link.label}
                 </motion.a>
               ))}
             </nav>
 
             <motion.div
-              initial={{ opacity: 0, y: 16 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.4 }}
+              transition={{ delay: reducedMotion ? 0 : 0.45, duration: reducedMotion ? 0 : 0.4 }}
               className="flex flex-wrap items-center justify-center gap-4 pb-10 pt-6"
             >
               <SocialIcon href={person.linkedIn} label="LinkedIn">

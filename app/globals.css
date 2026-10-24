@@ -12,6 +12,25 @@
     @apply bg-canvas;
   }
 
+  :where(
+    a,
+    button,
+    input,
+    textarea,
+    select,
+    summary,
+    [tabindex]:not([tabindex="-1"])
+  ):focus-visible {
+    outline: 2px solid #4b86f7;
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
   /* Layered ambient background — fixed, behind everything */
   body::before {
     content: "";
@@ -57,10 +76,20 @@
   }
 
   @media (pointer: fine) {
-    html.has-custom-cursor,
-    html.has-custom-cursor * {
+    html.has-custom-cursor:not(.reduce-motion),
+    html.has-custom-cursor:not(.reduce-motion) * {
       cursor: none !important;
     }
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply fixed left-4 top-4 z-[10002] -translate-y-[200%] rounded-full border border-lineLight bg-surface px-4 py-2.5 font-mono text-xs font-medium uppercase tracking-wider text-ink transition-transform duration-200;
+  }
+
+  .skip-link:focus {
+    @apply translate-y-0;
   }
 }
 
@@ -77,14 +106,17 @@
 /* Nav link underline from center */
 .nav-link {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
+  padding: 0.375rem 0.75rem;
 }
 .nav-link::after {
   content: "";
   position: absolute;
   left: 50%;
-  bottom: -2px;
-  width: 100%;
+  bottom: 0.375rem;
+  width: calc(100% - 1.5rem);
   height: 1px;
   background: currentColor;
   transform: translateX(-50%) scaleX(0);
@@ -101,11 +133,11 @@
   align-items: center;
   gap: 0.75rem;
   font-family: var(--font-jetbrains), monospace;
-  font-size: 0.7rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 0.18em;
-  color: #6B6B76;
+  color: #8b8b95;
 }
 .section-eyebrow::before {
   content: "";
@@ -118,12 +150,12 @@
 /* Tag chip — pill-shaped mono tech tag */
 .tag-chip {
   display: inline-block;
-  padding: 0.25rem 0.7rem;
+  padding: 0.35rem 0.75rem;
   border-radius: 9999px;
   border: 1px solid #2E2E36;
   background: rgba(255,255,255,0.02);
   font-family: var(--font-jetbrains), monospace;
-  font-size: 0.68rem;
+  font-size: 0.8125rem;
   font-weight: 400;
   color: #B0B0B8;
   white-space: nowrap;
@@ -161,4 +193,18 @@
 .marquee-mask {
   -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
   mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-scrollHint,
+  .animate-pulseDot,
+  .animate-blobFloat,
+  .caret {
+    animation: none !important;
+  }
+
+  .nav-link::after {
+    transition: none;
+  }
 }

@@ -142,6 +142,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Link from "next/link";
 import { about, person } from "../data/content";
+import { prefersReducedMotion } from "../utils/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -166,7 +167,7 @@ export default function About() {
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".about-reveal"), {
@@ -204,7 +205,7 @@ export default function About() {
           ))}
         </div>
 
-        <p className="about-reveal mt-8 font-mono text-[0.7rem] leading-relaxed text-muted">
+        <p className="about-reveal mt-8 font-mono text-sm leading-relaxed text-muted">
           {about.educationNote}
         </p>
 
@@ -214,7 +215,7 @@ export default function About() {
             href={person.cvPath}
             target="_blank"
             data-cursor-hover
-            className="group inline-flex items-center gap-3 rounded-full bg-ink px-7 py-3 text-[0.85rem] font-medium text-canvas transition-transform duration-300 ease-smooth hover:scale-105"
+            className="group inline-flex min-h-11 items-center gap-3 rounded-full bg-ink px-7 py-3 text-[0.85rem] font-medium text-canvas transition-transform duration-300 ease-smooth hover:scale-105 motion-reduce:transform-none"
           >
             <span>View Full CV</span>
 
@@ -237,7 +238,7 @@ export default function About() {
             target="_blank"
             rel="noopener noreferrer"
             data-cursor-hover
-            className="inline-flex items-center gap-2 rounded-full border border-lineLight px-7 py-3 font-mono text-[0.75rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink"
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-lineLight px-7 py-3 font-mono text-xs font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink sm:text-[0.8125rem]"
           >
             GitHub ↗
           </a>

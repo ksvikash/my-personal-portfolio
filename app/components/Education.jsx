@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { education } from "../data/content";
+import { prefersReducedMotion } from "../utils/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,7 @@ export default function Education() {
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".edu-reveal"), {
         scrollTrigger: {
@@ -67,14 +68,14 @@ export default function Education() {
                     {edu.institution}
                   </h3>
                   <p className="text-[0.9rem] text-inkSoft">{edu.degree}</p>
-                  <p className="font-mono text-[0.68rem] text-muted">
+                  <p className="font-mono text-xs text-muted sm:text-[0.8125rem]">
                     {edu.location} · {edu.period}
                   </p>
                 </div>
 
                 {/* Coursework */}
                 <div className="mt-2">
-                  <p className="mb-2 font-mono text-[0.62rem] uppercase tracking-[0.12em] text-muted">
+                  <p className="mb-2 font-mono text-xs uppercase tracking-[0.12em] text-muted">
                     Relevant Coursework
                   </p>
                   <div className="flex flex-wrap gap-1.5">

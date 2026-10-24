@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { experienceItems } from "../data/content";
+import { prefersReducedMotion } from "../utils/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,7 @@ export default function Experience() {
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
 
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".experience-reveal"), {
@@ -58,7 +59,7 @@ export default function Experience() {
               className="experience-reveal group flex flex-col gap-6 bg-canvas p-6 transition-colors duration-300 hover:bg-surface/50 md:flex-row md:items-start md:gap-8 md:p-8"
             >
               <div className="shrink-0 md:w-32">
-                <span className="font-mono text-[0.68rem] text-muted">
+                <span className="font-mono text-xs text-muted sm:text-[0.8125rem]">
                   {experience.date}
                 </span>
               </div>

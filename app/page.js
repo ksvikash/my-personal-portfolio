@@ -12,8 +12,11 @@ import Experience from "./components/Experience";
 export default function Home() {
   return (
     <>
+      <a href="#about" className="skip-link">
+        Skip to content
+      </a>
       <Navbar />
-      <main>
+      <main id="main-content">
         <Hero />
         <About />
         <Education />

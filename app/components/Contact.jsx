@@ -17,25 +17,26 @@ export default function Contact() {
       />
 
       <div className="relative z-10 mx-auto max-w-[700px] text-center">
-        <p className="section-eyebrow mx-auto mb-8 justify-center"></p>
+        <p className="section-eyebrow mx-auto mb-8 justify-center">06 — Contact</p>
         <h2 className="font-serif text-[clamp(2rem,6vw,4rem)] font-light leading-[1.15] text-ink">
-          Get in <span className="italic text-accent">Touch.</span>
+          Get in <span className="italic text-accent">touch.</span>
         </h2>
         <p className="mx-auto mt-6 max-w-[420px] text-[1.05rem] leading-relaxed text-inkSoft">
           Open for internships.
         </p>
 
-        {/* Availability strip */}
-        <p className="mt-6 font-mono text-[0.68rem] uppercase tracking-[0.12em] text-muted">
-          <span className="text-success">●</span> Available from Jan 2027 · {person.location} · {person.timezone}
+        <p className="mt-6 font-mono text-xs uppercase tracking-[0.12em] text-inkSoft sm:text-[0.8125rem]">
+          <span className="text-success" aria-hidden>
+            ●{" "}
+          </span>
+          Available from Jan 2027 · {person.location} · {person.timezone}
         </p>
 
-        {/* CTAs */}
         <div className="mt-10 flex w-full max-w-md flex-col items-stretch gap-4 sm:mx-auto sm:max-w-none sm:flex-row sm:flex-wrap sm:items-center sm:justify-center">
           <a
             href={`mailto:${person.email}`}
             data-cursor-hover
-            className="group inline-flex w-full items-center justify-center gap-3 rounded-full bg-ink px-8 py-3.5 text-[0.9rem] font-medium text-canvas transition-transform duration-300 ease-smooth hover:scale-105 sm:w-auto"
+            className="group inline-flex min-h-11 w-full items-center justify-center gap-3 rounded-full bg-ink px-8 py-3.5 text-[0.9rem] font-medium text-canvas transition-transform duration-300 ease-smooth hover:scale-105 motion-reduce:transform-none sm:w-auto"
           >
             <svg
               width="18"
@@ -48,25 +49,24 @@ export default function Contact() {
             >
               <path d="M22 6l-10 7L2 6M2 4h20v16H2z" />
             </svg>
-            <span>Send an Email</span>
+            <span>Send email</span>
           </a>
           <a
             href={person.cvPath}
             download
             data-cursor-hover
-            className="inline-flex w-full items-center justify-center gap-2 rounded-full border border-lineLight px-8 py-3.5 font-mono text-[0.72rem] font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink sm:w-auto"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-full border border-lineLight px-8 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.1em] text-inkSoft transition-all duration-300 hover:border-accent hover:text-ink sm:w-auto sm:text-[0.8125rem]"
           >
             Download CV
           </a>
         </div>
 
-        {/* Social links */}
-        <div className="mt-10 flex flex-wrap justify-center gap-8 font-mono text-[0.72rem] uppercase tracking-[0.1em]">
+        <div className="mt-10 flex flex-wrap justify-center gap-x-8 gap-y-3 font-mono text-xs uppercase tracking-[0.1em] sm:text-[0.8125rem]">
           <a
             href={person.linkedIn}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-inkSoft transition-colors hover:text-accent"
+            className="inline-flex min-h-11 items-center text-inkSoft transition-colors hover:text-accent"
           >
             LinkedIn ↗
           </a>
@@ -74,13 +74,13 @@ export default function Contact() {
             href={person.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-inkSoft transition-colors hover:text-accent"
+            className="inline-flex min-h-11 items-center text-inkSoft transition-colors hover:text-accent"
           >
             GitHub ↗
           </a>
           <a
             href={`mailto:${person.email}`}
-            className="text-inkSoft transition-colors hover:text-accent"
+            className="inline-flex min-h-11 items-center text-inkSoft transition-colors hover:text-accent"
           >
             {person.email}
           </a>

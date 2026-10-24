@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { skillGroups } from "../data/content";
+import { prefersReducedMotion } from "../utils/motion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -12,7 +13,7 @@ export default function Skills() {
 
   useEffect(() => {
     const el = sectionRef.current;
-    if (!el) return;
+    if (!el || prefersReducedMotion()) return;
     const ctx = gsap.context(() => {
       gsap.from(el.querySelectorAll(".skills-reveal"), {
         scrollTrigger: {
@@ -53,10 +54,10 @@ export default function Skills() {
               className="group flex flex-col gap-4 bg-canvas p-6 transition-colors duration-300 hover:bg-surface/60 sm:p-8"
             >
               <div className="flex items-center justify-between">
-                <span className="font-mono text-[0.72rem] font-medium uppercase tracking-[0.12em] text-inkSoft">
+                <span className="font-mono text-xs font-medium uppercase tracking-[0.12em] text-inkSoft sm:text-[0.8125rem]">
                   {group.label}
                 </span>
-                <span className="font-mono text-[0.68rem] text-muted">{group.count}</span>
+                <span className="font-mono text-xs text-muted sm:text-[0.8125rem]">{group.count}</span>
               </div>
               <div className="flex flex-wrap gap-2">
                 {group.items.map((item) => (
