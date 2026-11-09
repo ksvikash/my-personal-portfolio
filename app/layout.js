@@ -1,4 +1,5 @@
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 import ClientShell from "./ClientShell";
 
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
     >
       <body className="font-sans overflow-x-hidden bg-canvas text-ink antialiased">
         <ClientShell>{children}</ClientShell>
+        <Analytics />
       </body>
     </html>
   );
